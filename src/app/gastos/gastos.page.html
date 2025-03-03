@@ -1,0 +1,55 @@
+
+<div class="nav">
+<ion-header>
+  <ion-toolbar class="custom-navbar">
+    <div class="tabs">
+        <a [routerLink]="'/home'" [ngClass]="{ 'active': paginaActual === 'home' }">INGRESOS</a>
+        <a [routerLink]="'/gastos'" [ngClass]="{ 'active': paginaActual === 'gastos' }">GASTOS</a>
+      </div>
+  </ion-toolbar>
+</ion-header>
+</div>
+
+<ion-content>
+  <div class="contenedor-principal">
+    <!-- Encabezado con fecha -->
+    <div class="header">
+      <h3><p><b>Fecha de hoy: {{ fechaActual }}</b></p></h3>
+      <img src="assets/calendar.png" alt="Calendario" width="50px" height="50px">
+    </div>
+
+    <!-- Gráfico Circular -->
+    <div class="grafica">
+      <canvas id="gastosChart"></canvas>
+    </div>
+
+    <!-- Botón para agregar ingresos -->
+    <button class="add-button" (click)="mostrarFormulario()">+</button>
+
+    <!-- Formulario emergente para agregar ingreso -->
+    <div class="modal" *ngIf="formularioVisible">
+      <div class="modal-content">
+        <h3>Agregar Gasto</h3>
+        <input type="text" placeholder="Nombre del gasto" [(ngModel)]="nuevoGasto.nombre">
+        <input type="number" placeholder="Valor" [(ngModel)]="nuevoGasto.valor">
+        <button (click)="agregarGasto()">Agregar</button>
+        <button class="close-button" (click)="cerrarFormulario()">Cerrar</button>
+      </div>
+    </div>
+
+    <!-- Lista de ingresos -->
+    <div class="income-list">
+      <div class="income-item" *ngFor="let gastos of gastos">
+        <div class="icono">💰</div>
+        <div class="detalle">
+          <span class="nombre">{{ gastos.nombre }}</span>
+          <span class="fecha">{{ gastos.fecha }}</span>
+        </div>
+        <div class="valor">
+          <span class="porcentaje">{{ gastos.porcentaje }}%</span>
+          <span class="cantidad">{{ gastos.valor }}$</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

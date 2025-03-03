@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'gastos',
+    loadChildren: () => import('./gastos/gastos.module').then( m => m.GastosPageModule)
+  },
 ];
 
 @NgModule({

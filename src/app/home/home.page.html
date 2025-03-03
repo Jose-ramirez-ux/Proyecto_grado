@@ -1,20 +1,52 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar class="custom-navbar">
+    <div class="tabs">
+      <a [routerLink]="'/home'" [ngClass]="{ 'active': rutaActual === '/home' }">INGRESOS</a>
+      <a [routerLink]="'/gastos'" [ngClass]="{ 'active': rutaActual === '/gastos' }">GASTOS</a>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="contenedor-principal">
+    <!-- Encabezado con fecha -->
+    <div class="header">
+      <h3><b>Hoy {{ fechaActual }}</b></h3>
+      <img src="assets/calendar.png" alt="Calendario" width="50px" height="50px">
+    </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <!-- Gráfico Circular -->
+    <div class="grafica">
+      <canvas id="incomeChart"></canvas>
+    </div>
+
+    <!-- Botón para agregar ingresos -->
+    <button class="add-button" (click)="mostrarFormulario()">+</button>
+
+    <!-- Formulario emergente para agregar ingreso -->
+    <div class="modal" *ngIf="mostrarModal">
+      <div class="modal-content">
+        <h3>Agregar Ingreso</h3>
+        <input type="text" placeholder="Nombre del ingreso" [(ngModel)]="nuevoIngreso.nombre">
+        <input type="number" placeholder="Valor" [(ngModel)]="nuevoIngreso.valor">
+        <button (click)="agregarIngreso()">Agregar</button>
+        <button class="close-button" (click)="cerrarFormulario()">Cerrar</button>
+      </div>
+    </div>
+
+    <!-- Lista de ingresos -->
+    <div class="income-list">
+      <div class="income-item" *ngFor="let ingreso of ingresos">
+        <div class="icono">💰</div>
+        <div class="detalle">
+          <span class="nombre">{{ ingreso.nombre }}</span>
+          <span class="fecha">{{ ingreso.fecha }}</span>
+        </div>
+        <div class="valor">
+          <span class="porcentaje">{{ ingreso.porcentaje }}%</span>
+          <span class="cantidad">{{ ingreso.valor }}$</span>
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>
