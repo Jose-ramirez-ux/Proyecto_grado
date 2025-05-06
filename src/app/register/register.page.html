@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="register-container">
+    <div class="top-blob"></div>
+    
+    <h1 class="title">REGISTRO</h1>
+    
+    <div class="input-container">
+      <ion-icon name="person-outline"></ion-icon>
+      <ion-input placeholder="Usuario" [(ngModel)]="username"></ion-input>
+    </div>
+    
+    <div class="input-container">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+      <ion-input type="password" placeholder="Contraseña" [(ngModel)]="password"></ion-input>
+    </div>
+    
+    <div class="input-container">
+      <ion-icon name="mail-outline"></ion-icon>
+      <ion-input type="email" placeholder="Correo" [(ngModel)]="email"></ion-input>
+    </div>
+    
+    <div class="button-container">
+      <ion-button shape="circle" (click)="register()">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-button>
+    </div>
+    
+    <div class="login-link">
+      <ion-text color="success" (click)="goToLogin()">Iniciar sesión</ion-text>
+    </div>
+    
+    <div class="bottom-wave"></div>
+  </div>
+  
+  <!-- Overlay de éxito -->
+  <div class="success-overlay" *ngIf="showSuccess">
+    <div class="success-modal">
+      <div class="success-icon">
+        <ion-icon name="checkmark"></ion-icon>
+      </div>
+      <ion-text color="success">Usuario creado con éxito</ion-text>
+    </div>
+  </div>
+</ion-content>

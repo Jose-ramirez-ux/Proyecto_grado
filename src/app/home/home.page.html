@@ -12,7 +12,7 @@
     <!-- Encabezado con fecha -->
     <div class="header">
       <h3><b>Hoy {{ fechaActual }}</b></h3>
-      <img src="assets/calendar.png" alt="Calendario" width="50px" height="50px">
+      <img src="assets/calendar.png" alt="Calendario">
     </div>
 
     <!-- Gráfico Circular -->
@@ -23,29 +23,35 @@
     <!-- Botón para agregar ingresos -->
     <button class="add-button" (click)="mostrarFormulario()">+</button>
 
+    <!-- Lista de ingresos -->
+    <div class="income-list">
+      <div class="income-item" *ngFor="let ingreso of ingresos">
+        <div class="icono" [ngClass]="'icon-' + obtenerColorIcono(ingreso.nombre)">
+          {{ obtenerIcono(ingreso.nombre) }}
+        </div>
+        <div class="detalle">
+          <span class="nombre">{{ ingreso.nombre }}</span>
+        </div>
+        <div class="valor">
+          <span class="porcentaje">{{ ingreso.porcentaje }}%</span>
+          <span class="cantidad">{{ ingreso.valor }}$</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Formulario emergente para agregar ingreso -->
     <div class="modal" *ngIf="mostrarModal">
       <div class="modal-content">
         <h3>Agregar Ingreso</h3>
         <input type="text" placeholder="Nombre del ingreso" [(ngModel)]="nuevoIngreso.nombre">
         <input type="number" placeholder="Valor" [(ngModel)]="nuevoIngreso.valor">
+        <select [(ngModel)]="nuevoIngreso.tipo">
+          <option value="salario">Salario</option>
+          <option value="regalo">Regalo</option>
+          <option value="venta">Venta</option>
+        </select>
         <button (click)="agregarIngreso()">Agregar</button>
         <button class="close-button" (click)="cerrarFormulario()">Cerrar</button>
-      </div>
-    </div>
-
-    <!-- Lista de ingresos -->
-    <div class="income-list">
-      <div class="income-item" *ngFor="let ingreso of ingresos">
-        <div class="icono">💰</div>
-        <div class="detalle">
-          <span class="nombre">{{ ingreso.nombre }}</span>
-          <span class="fecha">{{ ingreso.fecha }}</span>
-        </div>
-        <div class="valor">
-          <span class="porcentaje">{{ ingreso.porcentaje }}%</span>
-          <span class="cantidad">{{ ingreso.valor }}$</span>
-        </div>
       </div>
     </div>
   </div>

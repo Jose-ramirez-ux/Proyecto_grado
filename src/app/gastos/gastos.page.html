@@ -1,53 +1,70 @@
-
-<div class="nav">
-<ion-header>
-  <ion-toolbar class="custom-navbar">
-    <div class="tabs">
-        <a [routerLink]="'/home'" [ngClass]="{ 'active': paginaActual === 'home' }">INGRESOS</a>
-        <a [routerLink]="'/gastos'" [ngClass]="{ 'active': paginaActual === 'gastos' }">GASTOS</a>
-      </div>
-  </ion-toolbar>
-</ion-header>
-</div>
-
 <ion-content>
   <div class="contenedor-principal">
+    <!-- Barra de navegación -->
+    <div class="nav-tabs">
+      <div class="tab" [ngClass]="{'active': paginaActual === 'home'}" [routerLink]="'/home'">INGRESOS</div>
+      <div class="tab" [ngClass]="{'active': paginaActual === 'gastos'}" [routerLink]="'/gastos'">GASTOS</div>
+    </div>
+
     <!-- Encabezado con fecha -->
     <div class="header">
-      <h3><p><b>Fecha de hoy: {{ fechaActual }}</b></p></h3>
-      <img src="assets/calendar.png" alt="Calendario" width="50px" height="50px">
+      <h3>Hoy {{ fechaDia }} de {{ fechaMes }}</h3>
+      <img src="assets/calendar.png" alt="Calendario" class="calendar-icon">
     </div>
 
-    <!-- Gráfico Circular -->
-    <div class="grafica">
-      <canvas id="gastosChart"></canvas>
+    <!-- Tarjeta con el gráfico circular -->
+    <div class="chart-card">
+      <div class="grafica-container">
+        <canvas id="gastosChart"></canvas>
+      </div>
     </div>
 
-    <!-- Botón para agregar ingresos -->
+    <!-- Lista de gastos -->
+    <div class="gastos-list">
+      <div class="gasto-item" *ngFor="let gasto of gastos">
+        <div class="gasto-icon" [ngStyle]="{'background-color': gasto.color}">
+          <span class="icon-text">{{ gasto.icono }}</span>
+        </div>
+        <div class="gasto-name">{{ gasto.nombre }}</div>
+        <div class="gasto-info">
+          <div class="gasto-porcentaje">{{ gasto.porcentaje }}%</div>
+          <div class="gasto-valor">{{ gasto.valor }}$</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón flotante para agregar gastos -->
     <button class="add-button" (click)="mostrarFormulario()">+</button>
 
-    <!-- Formulario emergente para agregar ingreso -->
+    <!-- Formulario emergente para agregar gasto -->
+    <div class="modal-overlay" *ngIf="formularioVisible" (click)="cerrarFormulario()"></div>
     <div class="modal" *ngIf="formularioVisible">
       <div class="modal-content">
         <h3>Agregar Gasto</h3>
-        <input type="text" placeholder="Nombre del gasto" [(ngModel)]="nuevoGasto.nombre">
-        <input type="number" placeholder="Valor" [(ngModel)]="nuevoGasto.valor">
-        <button (click)="agregarGasto()">Agregar</button>
-        <button class="close-button" (click)="cerrarFormulario()">Cerrar</button>
-      </div>
-    </div>
-
-    <!-- Lista de ingresos -->
-    <div class="income-list">
-      <div class="income-item" *ngFor="let gastos of gastos">
-        <div class="icono">💰</div>
-        <div class="detalle">
-          <span class="nombre">{{ gastos.nombre }}</span>
-          <span class="fecha">{{ gastos.fecha }}</span>
+        <div class="form-group">
+          <label for="nombre">Nombre del gasto</label>
+          <input type="text" id="nombre" placeholder="Ej: Casa, Comida, Ropa" [(ngModel)]="nuevoGasto.nombre">
         </div>
-        <div class="valor">
-          <span class="porcentaje">{{ gastos.porcentaje }}%</span>
-          <span class="cantidad">{{ gastos.valor }}$</span>
+        <div class="form-group">
+          <label for="valor">Valor ($)</label>
+          <input type="number" id="valor" placeholder="Ingrese el monto" [(ngModel)]="nuevoGasto.valor">
+        </div>
+        <div class="form-group">
+          <label for="icono">Icono</label>
+          <select id="icono" [(ngModel)]="nuevoGasto.icono">
+            <option value="🏠">🏠 Casa</option>
+            <option value="🍔">🍔 Comida</option>
+            <option value="👕">👕 Ropa</option>
+            <option value="💊">💊 Salud</option>
+            <option value="🚗">🚗 Transporte</option>
+            <option value="📱">📱 Tecnología</option>
+            <option value="🎮">🎮 Entretenimiento</option>
+            <option value="🏖️">🏖️ Vacaciones</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button class="btn-agregar" (click)="agregarGasto()">Agregar</button>
+          <button class="btn-cancelar" (click)="cerrarFormulario()">Cancelar</button>
         </div>
       </div>
     </div>

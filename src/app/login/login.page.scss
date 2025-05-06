@@ -1,0 +1,77 @@
+// login.page.scss
+.login-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 16px;
+  }
+  
+  .top-blob {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 80px;
+    background-color: var(--ion-color-primary-tint);
+    border-bottom-right-radius: 100%;
+    z-index: -1;
+  }
+  
+  .title {
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 64px;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  
+  .input-container {
+    display: flex;
+    align-items: center;
+    margin: 16px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+    
+    ion-icon {
+      color: #777;
+      font-size: 20px;
+      margin-right: 10px;
+    }
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    
+    ion-button {
+      --border-radius: 50%;
+      --padding-start: 0;
+      --padding-end: 0;
+      width: 48px;
+      height: 48px;
+    }
+  }
+  
+  .register-link {
+    text-align: center;
+    margin-top: 16px;
+    
+    ion-text {
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+  
+  .bottom-wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 128px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2360A5FA" fill-opacity="0.6" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,202.7C672,203,768,181,864,181.3C960,181,1056,203,1152,197.3C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    z-index: -1;
+  }
+  
