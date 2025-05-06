@@ -12,10 +12,10 @@ export class GastosPage implements OnInit {
   fechaActual: string = '';
   fechaDia: string = '';
   fechaMes: string = '';
-  gastos: { 
-    nombre: string; 
-    valor: number; 
-    porcentaje: number; 
+  gastos: {
+    nombre: string;
+    valor: number;
+    porcentaje: number;
     fecha: string;
     color: string;
     icono: string;
@@ -24,13 +24,13 @@ export class GastosPage implements OnInit {
   chart: any;
   paginaActual = 'gastos'; // Para marcar la pestaña activa
   formularioVisible: boolean = false;
-  nuevoGasto = { 
-    nombre: '', 
+  nuevoGasto = {
+    nombre: '',
     valor: 0,
     icono: '🏠',
     color: ''
   };
-  
+
   // Colores para los diferentes gastos
   colores = [
     '#000000', // Negro para Casa
@@ -58,10 +58,10 @@ export class GastosPage implements OnInit {
   ngOnInit() {
     // Inicializar la fecha
     this.configurarFecha();
-    
+
     // Inicializar con algunos gastos de ejemplo
     this.inicializarGastosEjemplo();
-    
+
     // Inicializar el gráfico después de que la vista se haya cargado
     setTimeout(() => {
       this.inicializarGrafico();
@@ -70,21 +70,21 @@ export class GastosPage implements OnInit {
 
   configurarFecha() {
     const fecha = new Date();
-    
+
     // Obtener el día del mes (número)
     this.fechaDia = fecha.getDate().toString();
-    
+
     // Obtener el nombre del mes en español
-    const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 
+    const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
                    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
     this.fechaMes = meses[fecha.getMonth()];
-    
+
     // Formatear la fecha completa para uso interno
-    this.fechaActual = fecha.toLocaleDateString('es-ES', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    this.fechaActual = fecha.toLocaleDateString('es-ES', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
   }
 
@@ -93,7 +93,7 @@ export class GastosPage implements OnInit {
     this.gastos = [
       {
         nombre: 'Casa',
-        valor: 500,
+        valor: 40,
         porcentaje: 50,
         fecha: this.fechaActual,
         color: '#000000',
@@ -116,23 +116,23 @@ export class GastosPage implements OnInit {
         icono: '👕'
       }
     ];
-    
+
     this.totalGastos = this.gastos.reduce((sum, gasto) => sum + gasto.valor, 0);
   }
 
   inicializarGrafico() {
     const ctx = document.getElementById('gastosChart') as HTMLCanvasElement;
-    
+
     if (!ctx) {
       console.error('No se encontró el canvas para la gráfica de gastos.');
       return;
     }
-    
+
     // Destruir el gráfico existente si hay uno
     if (this.chart) {
       this.chart.destroy();
     }
-    
+
     this.chart = new Chart(ctx, {
       type: 'doughnut',
       data: {
@@ -170,7 +170,7 @@ export class GastosPage implements OnInit {
           const ctx = chart.ctx;
           const width = chart.width;
           const height = chart.height;
-          
+
           ctx.restore();
           ctx.font = "bold 24px Arial";
           ctx.textBaseline = "middle";
@@ -218,7 +218,7 @@ export class GastosPage implements OnInit {
   actualizarGrafico() {
     // Recalcular el total
     this.totalGastos = this.gastos.reduce((sum, gasto) => sum + gasto.valor, 0);
-    
+
     // Recalcular porcentajes
     this.gastos.forEach(gasto => {
       gasto.porcentaje = parseFloat(((gasto.valor / this.totalGastos) * 100).toFixed(1));
